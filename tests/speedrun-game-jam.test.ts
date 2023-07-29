@@ -30,9 +30,23 @@ describe("speedrun-game-jam", () => {
     console.log("Your transaction signature", tx);
   });
 
-  it("Can mine ore!", async () => {
+  it("Can mine resources!", async () => {
     const tx = await program.methods
       .updateGameState(1, 1, 1)
+      .accounts({ gameState: gameStatePda })
+      .rpc();
+
+    const gameState = await program.account.gameState.fetch(gameStatePda);
+
+    expect(gameState.ore).toEqual(1);
+    expect(gameState.crystal).toEqual(1);
+    expect(gameState.platinum).toEqual(1);
+    console.log("Your transaction signature", tx);
+  })
+
+  it("Resets game!", async () => {
+    const tx = await program.methods
+      .reset()
       .accounts({ gameState: gameStatePda })
       .rpc();
 
@@ -43,5 +57,5 @@ describe("speedrun-game-jam", () => {
     expect(gameState.platinum).toEqual(0);
     console.log("Your transaction signature", tx);
   })
-  
+
 });

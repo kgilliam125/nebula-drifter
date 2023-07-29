@@ -36,6 +36,18 @@ pub mod speedrun_game_jam {
 
         Ok(())
     }
+
+    pub fn reset(ctx: Context<Reset>) -> Result<()> {
+        // require!(ctx.accounts.game_state.is_initialized == true, Error::);
+
+        let game_state = &mut ctx.accounts.game_state;
+
+        game_state.ore = 0;
+        game_state.crystal = 0;
+        game_state.platinum = 0;
+
+        Ok(())
+    }
 }
 
 // game signs this when started a new ranking season
@@ -61,6 +73,20 @@ pub struct UpdateGameState<'info> {
     #[account(mut)]
     pub signer: Signer<'info>,
     #[account(
+        mut, 
+        seeds=["state".as_bytes(), signer.key().as_ref()],
+        bump,
+    )]
+    pub game_state: Account<'info, GameState>,
+}
+
+#[derive(Accounts)]
+// #[instruction(ore: u16, crystal: u16, platinum: u16)]
+pub struct Reset<'info> {
+    #[account(mut)]
+    pub signer: Signer<'info>,
+    #[account(
+        mut,
         seeds=["state".as_bytes(), signer.key().as_ref()],
         bump,
     )]
