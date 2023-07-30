@@ -46,6 +46,7 @@ pub mod nebula_drifter {
 
         let game_state = &mut ctx.accounts.game_state;
 
+        // todo include actual upgrade costs here instead of client
         match game_state.upgrade_level {
             0 => {
                 game_state.ore -= ore;
@@ -54,16 +55,16 @@ pub mod nebula_drifter {
                 game_state.upgrade_level = 1;
             }
             1 => {
-                game_state.ore -= ore * 2;
-                game_state.crystal -= crystal * 2;
-                game_state.platinum -= platinum * 2;
+                game_state.ore -= ore;
+                game_state.crystal -= crystal;
+                game_state.platinum -= platinum;
                 game_state.upgrade_level = 2;
                 
             }
             2 => {
-                game_state.ore -= ore * 3;
-                game_state.crystal -= crystal * 3;
-                game_state.platinum -= platinum * 3;
+                game_state.ore -= ore;
+                game_state.crystal -= crystal;
+                game_state.platinum -= platinum;
                 game_state.upgrade_level = 3;
             }
             _ => {}

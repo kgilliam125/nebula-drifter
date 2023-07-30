@@ -28,7 +28,6 @@ describe("nebula-drifter", () => {
     expect(gameState.crystal).toEqual(0);
     expect(gameState.platinum).toEqual(0);
     expect(gameState.upgradeLevel).toEqual(0);
-    console.log("Your transaction signature", tx);
   });
 
   it("Can mine resources!", async () => {
@@ -42,10 +41,9 @@ describe("nebula-drifter", () => {
     expect(gameState.ore).toEqual(10);
     expect(gameState.crystal).toEqual(10);
     expect(gameState.platinum).toEqual(10);
-    console.log("Your transaction signature", tx);
   })
 
-  it("Can mine resources!", async () => {
+  it("Upgrades to 1!", async () => {
     const tx = await program.methods
       .upgrade(1, 1, 1)
       .accounts({ gameState: gameStatePda })
@@ -57,7 +55,48 @@ describe("nebula-drifter", () => {
     expect(gameState.crystal).toEqual(9);
     expect(gameState.platinum).toEqual(9);
     expect(gameState.upgradeLevel).toEqual(1);
-    console.log("Your transaction signature", tx);
+  })
+
+  it("Upgrades to 2!", async () => {
+    const tx = await program.methods
+      .upgrade(1, 1, 1)
+      .accounts({ gameState: gameStatePda })
+      .rpc();
+
+    const gameState = await program.account.gameState.fetch(gameStatePda);
+
+    expect(gameState.ore).toEqual(8);
+    expect(gameState.crystal).toEqual(8);
+    expect(gameState.platinum).toEqual(8);
+    expect(gameState.upgradeLevel).toEqual(2);
+  })
+
+  it("Upgrades to 3!", async () => {
+    const tx = await program.methods
+      .upgrade(1, 1, 1)
+      .accounts({ gameState: gameStatePda })
+      .rpc();
+
+    const gameState = await program.account.gameState.fetch(gameStatePda);
+
+    expect(gameState.ore).toEqual(7);
+    expect(gameState.crystal).toEqual(7);
+    expect(gameState.platinum).toEqual(7);
+    expect(gameState.upgradeLevel).toEqual(3);
+  })
+
+  it("Does not upgrade past 3 and does not consume resources", async () => {
+    const tx = await program.methods
+      .upgrade(1, 1, 1)
+      .accounts({ gameState: gameStatePda })
+      .rpc();
+
+    const gameState = await program.account.gameState.fetch(gameStatePda);
+
+    expect(gameState.ore).toEqual(7);
+    expect(gameState.crystal).toEqual(7);
+    expect(gameState.platinum).toEqual(7);
+    expect(gameState.upgradeLevel).toEqual(3);
   })
 
   it("Resets game!", async () => {
@@ -72,7 +111,5 @@ describe("nebula-drifter", () => {
     expect(gameState.crystal).toEqual(0);
     expect(gameState.platinum).toEqual(0);
     expect(gameState.upgradeLevel).toEqual(0);
-    console.log("Your transaction signature", tx);
   })
-
 });
