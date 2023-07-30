@@ -2,12 +2,14 @@
 
 In Nebula Drifter you play as the space exploration robot, Zephyr. You have crash landed on an asteroid and can no longer fly! Use the resources on the asteroid to upgrade yourself and make your escape.
 
-
 Play the game at: [https://kgilliam125.github.io/nebula-drifter/](https://kgilliam125.github.io/nebula-drifter/)
 
 See the game in this [Demo Video](https://www.loom.com/share/99c0b69cf60d4dbc9712dc5e96b43fee?sid=db4434e2-43f0-4c1b-aa28-56812f05d0dc). Warning, spoilers!
 
 # Testing Instructions
+
+**Note**: Nebula Drifter is currently playable on Solana Devnet only! Mainnet SOL will not work as the progrom is not deployed to Mainnet.
+
 
 ## 1 - How to test
 
