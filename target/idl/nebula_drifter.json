@@ -138,8 +138,5 @@
       "name": "WrongPlayer",
       "msg": "Player and signer do not match"
     }
-  ],
-  "metadata": {
-    "address": "9M6Rorip8xtNHS19hJyH6ECfpKwPKAn8RQMW8uhHdYYV"
-  }
+  ]
 }
