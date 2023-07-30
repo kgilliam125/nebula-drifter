@@ -907,6 +907,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "nebula-drifter"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+]
+
+[[package]]
 name = "num-bigint"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1421,7 +1428,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "speedrun-game-jam"
+name = "speedrun_game_jam"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",

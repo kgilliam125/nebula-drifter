@@ -1,12 +1,12 @@
 [package]
-name = "speedrun_game_jam"
+name = "nebula-drifter"
 version = "0.1.0"
 description = "Created with Anchor"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "speedrun_game_jam"
+name = "nebula_drifter"
 
 [features]
 no-entrypoint = []

@@ -1,13 +1,13 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { SpeedrunGameJam } from "../target/types/speedrun_game_jam";
+import { NebulaDrifter } from "../target/types/nebula_drifter";
 
-describe("speedrun-game-jam", () => {
+describe("nebula-drifter", () => {
   // Configure the client to use the local cluster.
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
-  const program = anchor.workspace.SpeedrunGameJam as Program<SpeedrunGameJam>;
+  const program = anchor.workspace.NebulaDrifter as Program<NebulaDrifter>;
 
   const [gameStatePda] = anchor.web3.PublicKey.findProgramAddressSync(
     [Buffer.from("state"), provider.publicKey.toBuffer()],
@@ -27,20 +27,36 @@ describe("speedrun-game-jam", () => {
     expect(gameState.ore).toEqual(0);
     expect(gameState.crystal).toEqual(0);
     expect(gameState.platinum).toEqual(0);
+    expect(gameState.upgradeLevel).toEqual(0);
     console.log("Your transaction signature", tx);
   });
 
   it("Can mine resources!", async () => {
     const tx = await program.methods
-      .updateGameState(1, 1, 1)
+      .addResources(10, 10, 10)
       .accounts({ gameState: gameStatePda })
       .rpc();
 
     const gameState = await program.account.gameState.fetch(gameStatePda);
 
-    expect(gameState.ore).toEqual(1);
-    expect(gameState.crystal).toEqual(1);
-    expect(gameState.platinum).toEqual(1);
+    expect(gameState.ore).toEqual(10);
+    expect(gameState.crystal).toEqual(10);
+    expect(gameState.platinum).toEqual(10);
+    console.log("Your transaction signature", tx);
+  })
+
+  it("Can mine resources!", async () => {
+    const tx = await program.methods
+      .upgrade(1, 1, 1)
+      .accounts({ gameState: gameStatePda })
+      .rpc();
+
+    const gameState = await program.account.gameState.fetch(gameStatePda);
+
+    expect(gameState.ore).toEqual(9);
+    expect(gameState.crystal).toEqual(9);
+    expect(gameState.platinum).toEqual(9);
+    expect(gameState.upgradeLevel).toEqual(1);
     console.log("Your transaction signature", tx);
   })
 
@@ -55,6 +71,7 @@ describe("speedrun-game-jam", () => {
     expect(gameState.ore).toEqual(0);
     expect(gameState.crystal).toEqual(0);
     expect(gameState.platinum).toEqual(0);
+    expect(gameState.upgradeLevel).toEqual(0);
     console.log("Your transaction signature", tx);
   })
 
